@@ -1,32 +1,32 @@
-// Sélection des éléments du DOM
 const sidebar = document.querySelector("#sidebar");
 const hide_sidebar = document.querySelector(".hide-sidebar");
 const new_chat_button = document.querySelector(".new-chat");
+
+hide_sidebar.addEventListener( "click", function() {
+    sidebar.classList.toggle( "hidden" );
+} );
+
 const user_menu = document.querySelector(".user-menu ul");
 const show_user_menu = document.querySelector(".user-menu button");
-const message_box = document.querySelector("#message");
+
+show_user_menu.addEventListener( "click", function() {
+    if( user_menu.classList.contains("show") ) {
+        user_menu.classList.toggle( "show" );
+        setTimeout( function() {
+            user_menu.classList.toggle( "show-animate" );
+        }, 200 );
+    } else {
+        user_menu.classList.toggle( "show-animate" );
+        setTimeout( function() {
+            user_menu.classList.toggle( "show" );
+        }, 50 );
+    }
+} );
+const newChatButton = document.querySelector(".new-chat");
 const conversationsList = document.querySelector(".conversations");
-const models = document.querySelectorAll(".model-selector button");
 
-// Ajout des écouteurs d'événements
-hide_sidebar.addEventListener("click", function() {
-    sidebar.classList.toggle("hidden");
-});
-
-show_user_menu.addEventListener("click", function() {
-    user_menu.classList.toggle("show");
-    setTimeout(function() {
-        user_menu.classList.toggle("show-animate");
-    }, 50);
-});
-
-new_chat_button.addEventListener("click", function() {
-    addNewConversation();
-    show_view(".new-chat-view");
-});
-
-// Fonction pour ajouter une nouvelle conversation
-function addNewConversation() {
+newChatButton.addEventListener("click", function() {
+    // Crée un nouvel élément li pour la nouvelle conversation
     const newConversation = document.createElement("li");
     newConversation.innerHTML = `
         <button class="conversation-button">
@@ -40,11 +40,12 @@ function addNewConversation() {
             </div>
         </div>
     `;
+    
     conversationsList.appendChild(newConversation);
-
-    // Ajout des écouteurs d'événements pour les nouveaux boutons d'édition et de suppression
+    
+    
     newConversation.querySelector(".edit-conversation").addEventListener("click", function(event) {
-        event.stopPropagation();
+        event.stopPropagation(); 
         editTitle(newConversation);
     });
 
@@ -52,15 +53,17 @@ function addNewConversation() {
         event.stopPropagation();
         deleteConversation(this);
     });
-}
+});
 
-// Fonction pour supprimer une conversation
+
+
 function deleteConversation(deleteButton) {
-    const conversation = deleteButton.closest("li");
-    conversation.remove();
+    const conversation = deleteButton.closest("li"); 
+    conversation.remove(); 
 }
 
-// Fonction pour modifier le titre de la conversation
+
+
 function editTitle(conversation) {
     const currentTitle = conversation.querySelector(".conversation-button").innerText;
     const newTitle = prompt("Entrez le nouveau titre de la conversation :", currentTitle);
@@ -69,36 +72,44 @@ function editTitle(conversation) {
     }
 }
 
-// Ajout des écouteurs d'événements pour les boutons d'édition et de suppression existants
+
 document.querySelectorAll(".edit-conversation").forEach(editButton => {
     editButton.addEventListener("click", function(event) {
-        event.stopPropagation();
-        const conversation = editButton.parentElement.parentElement;
+        event.stopPropagation(); 
+        const conversation = editButton.parentElement.parentElement; 
         editTitle(conversation);
     });
 });
 
 document.querySelectorAll(".delete-conversation").forEach(deleteButton => {
     deleteButton.addEventListener("click", function(event) {
-        event.stopPropagation();
-        const conversation = deleteButton.parentElement.parentElement;
+        event.stopPropagation(); 
+        const conversation = deleteButton.parentElement.parentElement; 
         deleteConversation(conversation);
     });
 });
 
-// Autres fonctionnalités
+const models = document.querySelectorAll(".model-selector button");
+
+for( const model of models ) {
+    model.addEventListener("click", function() {
+        document.querySelector(".model-selector button.selected")?.classList.remove("selected");
+        model.classList.add("selected");
+    });
+}
+
+const message_box = document.querySelector("#message");
 
 message_box.addEventListener("keyup", function() {
     message_box.style.height = "auto";
     let height = message_box.scrollHeight + 2;
-    if (height > 200) {
+    if( height > 200 ) {
         height = 200;
     }
     message_box.style.height = height + "px";
 });
 
-
-function show_view(view_selector) {
+function show_view( view_selector ) {
     document.querySelectorAll(".view").forEach(view => {
         view.style.display = "none";
     });
@@ -106,15 +117,12 @@ function show_view(view_selector) {
     document.querySelector(view_selector).style.display = "flex";
 }
 
-models.forEach(model => {
-    model.addEventListener("click", function() {
-        document.querySelector(".model-selector button.selected")?.classList.remove("selected");
-        model.classList.add("selected");
-    });
+new_chat_button.addEventListener("click", function() {
+    show_view( ".new-chat-view" );
 });
 
 document.querySelectorAll(".conversation-button").forEach(button => {
     button.addEventListener("click", function() {
-        show_view(".conversation-view");
-    });
+        show_view( ".conversation-view" );
+    })
 });

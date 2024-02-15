@@ -67,7 +67,9 @@
                 <li><button>Mon plan</button></li>
                 <li><button>Instructions personnalisées</button></li>
                 <li><button>Paramètres &amp; Bêta</button></li>
-                <li><button>Déconnexion</button></li>
+                <li><button id="logoutButton">Déconnexion</button></li>
+
+               
             </ul>
         </div>
     </nav>
@@ -97,7 +99,7 @@
             </div>
 
             <div class="logo">
-                Chat
+             AdelGPT
             </div>
         </div>
 
@@ -162,9 +164,15 @@
                 <textarea id="message" rows="1" placeholder="Envoyer un message"></textarea>
                 <button class="send-button"><i class="fa fa-paper-plane"></i></button>
             </div>
-            <div class="disclaimer">Cette version de ChatWTF est réalisée par Adel Loukal.</div>
+            <div class="disclaimer">Cette version de AdelGPT est réalisée par Adel Loukal.</div>
         </div>
     </main>
     <script src="script.js"></script>
+    <script>
+        document.getElementById("logoutButton").addEventListener("click", function logout() {   
+            window.location.href = "index.html";
+            document.getElementById("logoutButton").removeEventListener("click", logout);
+        });
+    </script>
 </body>
 </html>
