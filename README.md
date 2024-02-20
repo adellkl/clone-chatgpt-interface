@@ -1,1 +1,1 @@
-# clone-chatgpt-UI
+# clone-chatgpt-interface
