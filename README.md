@@ -25,4 +25,4 @@ Bienvenue dans AdelGPT, une application de chat en ligne simple et conviviale.
 
 ## Auteur
 
-Ce projet a été réalisé par Adel Loukal dans le cadre d'un projet personnel.
+Ce projet a été réalisé par @Adellkl dans le cadre d'un projet personnel.
